@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiscalité de paiement </title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      color: #17202a;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+      background: white;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.08);
+    }
+
+    .demo {
+      background: #fff3cd;
+      color: #856404;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 13px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #2563eb;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .account {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .account-title {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .balance {
+      font-size: 30px;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .total {
+      border-top: 1px solid #ddd;
+      margin-top: 14px;
+      padding-top: 14px;
+      font-weight: bold;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    #otpSection,
+    #success {
+      display: none;
+      margin-top: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 5px;
+    }
+
+    .hint {
+      color: #6b7280;
+      font-size: 12px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .success-box {
+      background: #ecfdf5;
+      color: #047857;
+      padding: 18px;
+      border-radius: 10px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .footer {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 11px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="demo">
+       Fiscalité et règlementation du web3
+    </div>
+
+    <div class="logo">FP</div>
+
+    <h1>Fiscalité de paiement</h1>
+
+    <p class="subtitle">
+      Interface officiel de la ACC
+    
+
+    <div class="account">
+
+      <div class="account-title">
+        Compte
+      </div>
+
+      <div class="impayés">
+        300,00 €
+      </div>
+
+      <div class="row">
+        <span>Montant fiscal</span>
+        <span>300,00 €</span>
+      </div>
+
+      <div class="row">
+        <span>Frais de traitement</span>
+        <span>5,00 €</span>
+      </div>
+
+      <div class="row total">
+        <span>Total</span>
+        <span>305,00 €</span>
+      </div>
+
+    </div>
+
+    <button onclick="showOtp()">
+      Finaliser le paiement
+    </button>
+
+    <div id="otpSection">
+
+      <h3>Validation de paiement</h3>
+
+      <p class="hint">
+        Entrez votre code otp
+      </p>
+
+      <input
+        id="otp"
+        type="text"
+        maxlength="6"
+        placeholder="••••••"
+        inputmode="numeric"
+      >
+
+      <button onclick="Payment()">
+        Valider le paiement
+      </button>
+
+    </div>
+
+    <div id="success">
+      <div class="success-box">
+        <strong>✓ paiement terminé avec succès</strong>
+        <br><br>
+        Vos accès seront accessibles sous <strong>24h ouvrables</strong>.
+      </div>
+    </div>
+
+    <div class="footer">
+      Connecté à un système bancaire et Mobile Money.
+    </div>
+
+  </div>
+
+  <script>
+    function showOtp() {
+      document.getElementById("otpSection").style.display = "block";
+    }
+
+    function simulatePayment() {
+      const otp = document.getElementById("otp").value;
+
+      if (otp.length !== 6) {
+        alert("Entrez un code OTP à 6 chiffres.");
+        return;
+      }
+
+      document.getElementById("otpSection").style.display = "none";
+      document.getElementById("success").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
